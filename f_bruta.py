@@ -146,3 +146,5 @@ for i in range(len(ordens[ind])):
     sleep(0.5)
 
 wn.exitonclick()
+
+print('teste')
