@@ -13,7 +13,7 @@ def dist_2_pontos(P1, P2):
 
 
 # definindo quantos pontos vou querer:
-n = 8  # (programa aguenta até 11 pontos)  
+n = 9  # (programa aguenta até 11 pontos)
 # lembrando que para esse programa eu criei ele para ser feito com 5 pontos apenas, mas no futuro da para
 # aprimorar para mais pontos
 
@@ -146,5 +146,3 @@ for i in range(len(ordens[ind])):
     sleep(0.5)
 
 wn.exitonclick()
-
-print('teste')
