@@ -6,7 +6,7 @@ from suporte import f_bruta_dentro, dist_2_pontos
 
 
 # definindo quantos pontos vou querer:
-n = 7  # (n pode ser "qualquer" valor)
+n = 9  # (n pode ser "qualquer" valor)
 # lembrando que para esse programa eu criei ele para ser feito com 5 pontos apenas, mas no futuro da para
 # aprimorar para mais pontos
 
@@ -18,12 +18,16 @@ onde teremos uma lista do tipo pontos = [P1, P2, P3, etc...]
 sendo P_n = [Xpn, Ypn]
 assim:  pontos = [[x1, y1], [x2, y2], [x3, y3], ..., [xn, yn]]   '''
 
-#
+# já garantindo que não haja pontos repetidos:
 pontos = list()
 for i in range(n):
     pontos.append([])
     pontos[i].append(np.random.randint(0, lim + 1))
     pontos[i].append(np.random.randint(0, lim + 1))
+    while pontos[i] in pontos[:-1]:
+        pontos[i] = []                                      # limpa a lista e pega outros números aleatórios
+        pontos[i].append(np.random.randint(0, lim + 1))
+        pontos[i].append(np.random.randint(0, lim + 1))
 
 '''   escolhendo um ponto para começar:
 p será um número inteiro que representa o índice do ponto na lista pontos'''
