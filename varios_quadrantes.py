@@ -18,6 +18,7 @@ onde teremos uma lista do tipo pontos = [P1, P2, P3, etc...]
 sendo P_n = [Xpn, Ypn]
 assim:  pontos = [[x1, y1], [x2, y2], [x3, y3], ..., [xn, yn]]   '''
 
+#
 pontos = list()
 for i in range(n):
     pontos.append([])
@@ -44,13 +45,13 @@ for i in range(n_quad):
         min = d          # variável com o valor da menor distância
         i_quadrante = i  # index respectivo a menor distância
 
-q_inicial = quadrantes[i_quadrante]  # equivalente à variável p
+
 perm_Q = list()
 for i in range(n_quad):
     perm_Q.append(i)
 
 # retirando o quadrante inicial
-perm_Q.pop(quadrantes.index(q_inicial))
+perm_Q.pop(quadrantes.index(quadrantes[i_quadrante]))
 
 # criando uma lista com listas de todas as ordens_Q possíveis (quad - 1)!
 # finalizando sempre no index do quadrante que tem que finalizar
