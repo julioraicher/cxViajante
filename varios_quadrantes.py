@@ -6,7 +6,7 @@ from suporte import f_bruta_dentro, dist_2_pontos
 
 
 # definindo quantos pontos vou querer:
-n = 9  # (n pode ser "qualquer" valor)
+n = 7  # (n pode ser "qualquer" valor)
 # lembrando que para esse programa eu criei ele para ser feito com 5 pontos apenas, mas no futuro da para
 # aprimorar para mais pontos
 
@@ -24,43 +24,45 @@ for i in range(n):
     pontos.append([])
     pontos[i].append(np.random.randint(0, lim + 1))
     pontos[i].append(np.random.randint(0, lim + 1))
-    while pontos[i] in pontos[:-1]:
-        pontos[i] = []                                      # limpa a lista e pega outros números aleatórios
+    while pontos[i] in pontos[:-1]:                       # se/enquanto for elemento repetido:
+        pontos[i] = []                                    #   limpa a lista e pega outros números aleatórios
         pontos[i].append(np.random.randint(0, lim + 1))
         pontos[i].append(np.random.randint(0, lim + 1))
 
-'''   escolhendo um ponto para começar:
-p será um número inteiro que representa o índice do ponto na lista pontos'''
+#   escolhendo um ponto para começar:
+# p será um número inteiro que representa o índice do ponto na lista pontos
 p = np.random.randint(0, n)
 
 # definindo os quadrantes (os centros deles):    (falta "automatizar" para n quadrantes)
+# e lembrar que não pode passar de 11 pontos por quadrante (adicionar isso mais pra frente no código)
 quadrantes = [[3.33, 16.67], [10, 16.67], [16.67, 16.67],
                 [3.33, 10],    [10, 10],    [16.67, 10],
               [3.33, 3.33],   [10, 3.33], [16.67, 3.33]]
 
 # a partir do ponto escolhido, achar o seu respectivo quadrante e
-#encontrar o melhor caminhos entre quadrantes primeiramente
+# encontrar o melhor caminhos entre quadrantes primeiramente
 
-#verificando a menor distância até um centro de quadrante:
-min = 1000
+# verificando a menor distância até um centro de quadrante para ver que quadrante está o p inicial:
+min = 1e3                # um valor muito grande para o problema
 for i in range(n_quad):
     d = dist_2_pontos(pontos[p], quadrantes[i])
     if d < min:
-        min = d          # variável com o valor da menor distância
-        i_quadrante = i  # index respectivo a menor distância
+        min = d           # variável com o valor da menor distância
+        i_quadrante = i   # index respectivo a menor distância
 
 
+# criar uma lista (de índices) para depois remover apenas o quadrante inicial dela
 perm_Q = list()
 for i in range(n_quad):
     perm_Q.append(i)
-
 # retirando o quadrante inicial
 perm_Q.pop(quadrantes.index(quadrantes[i_quadrante]))
+
 
 # criando uma lista com listas de todas as ordens_Q possíveis (quad - 1)!
 # finalizando sempre no index do quadrante que tem que finalizar
 # lembrar depois de ter que sair do mesmo quadrante que finaliza
-ordens_Q_tuplas = list(permutations(perm_Q))
+ordens_Q_tuplas = list(permutations(perm_Q))          # pq a função cria tuplas, aí vou converter depois para listas
 ordens_Q = list()
 for i in range(len(ordens_Q_tuplas)):
     ordens_Q.append([])
@@ -68,6 +70,8 @@ for i in range(len(ordens_Q_tuplas)):
     for j in range(len(ordens_Q_tuplas[i])):
         ordens_Q[i].append(ordens_Q_tuplas[i][j])
     ordens_Q[i].append(i_quadrante)
+# essa função acima cria uma lista com todas as combinações possíveis menos o índice mais o índice no final de todas
+
 
 # força bruta para melhor caminho entre quadrantes:
 dist_min = 1e6  # um número muito grande para o problema
@@ -77,7 +81,10 @@ for i in range(len(ordens_Q)):  # testar em todas as ordens possíveis
         dist += dist_2_pontos(quadrantes[ordens_Q[i][j]], quadrantes[ordens_Q[i][j + 1]])
     if dist < dist_min:
         dist_min = dist
-        ind = i  # índice da lista com o melhor caminho entre quadrantes
+        ind = i            # índice da lista com o melhor caminho entre quadrantes
+
+'''falta testar aqui !!!!!!!!!!!!!!!!'''
+
 
 # ordens_Q[ind] é a lista com a melhor ordem entre quadrantes
 # lembrando que ela não começa com o ponto de saída, ele está
