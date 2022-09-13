@@ -27,6 +27,10 @@ for i in range(n):
     pontos.append([])
     pontos[i].append(np.random.randint(0, 21))
     pontos[i].append(np.random.randint(0, 21))
+    while pontos[i] in pontos[:-1]:                       # se/enquanto for elemento repetido:
+        pontos[i] = []                                    #   limpa a lista e pega outros números aleatórios
+        pontos[i].append(np.random.randint(0, 21))
+        pontos[i].append(np.random.randint(0, 21))
 
 '''   escolhendo um ponto para começar:
 p será um número inteiro que representa o índice do ponto na lista pontos'''
