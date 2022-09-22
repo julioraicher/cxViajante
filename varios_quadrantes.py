@@ -6,7 +6,7 @@ from suporte import f_bruta_dentro, dist_2_pontos
 
 
 # definindo quantos pontos vou querer:
-n = 7  # (n pode ser "qualquer" valor)
+n = 12  # (n pode ser "qualquer" valor)
 # lembrando que para esse programa eu criei ele para ser feito com 5 pontos apenas, mas no futuro da para
 # aprimorar para mais pontos
 
@@ -51,12 +51,29 @@ for i in range(n_quad):
         i_quadrante = i   # index respectivo a menor distância
 
 
-# criar uma lista (de índices) para depois remover apenas o quadrante inicial dela
-perm_Q = list()
+pontosEmQuadrantes = list()
 for i in range(n_quad):
-    perm_Q.append(i)
-# retirando o quadrante inicial
-perm_Q.pop(quadrantes.index(quadrantes[i_quadrante]))
+    pontosEmQuadrantes.append([])
+#verificando para cada ponto o seu lugar na lista pontosEmQuadrantes
+for i in range(n):         # para cada ponto
+    min = 1000             # um número muito grande para o problema
+    c = 0                  # variável suporte para contador
+    for j in range(n_quad):
+        d = dist_2_pontos(pontos[i], quadrantes[j])
+        if d < min:
+            min = d
+            indexQ = j
+            c += 1
+    pontosEmQuadrantes[c-1].append(pontos[i])
+
+
+# criando uma lista que vou permutar depois (tirando já o índice do quadrante inicial - salvo como i_quadrante)
+perm_Q = list()
+for i in range(len(pontosEmQuadrantes)):
+    if pontosEmQuadrantes[i]:                  # se tiver elementos (pelo menos um)
+        perm_Q.append(i)
+    if i == i_quadrante:
+        perm_Q.pop()
 
 
 # criando uma lista com listas de todas as ordens_Q possíveis (quad - 1)!
@@ -81,9 +98,9 @@ for i in range(len(ordens_Q)):  # testar em todas as ordens possíveis
         dist += dist_2_pontos(quadrantes[ordens_Q[i][j]], quadrantes[ordens_Q[i][j + 1]])
     if dist < dist_min:
         dist_min = dist
-        ind = i            # índice da lista com o melhor caminho entre quadrantes
+        ind = i                  # índice da lista com o melhor caminho entre quadrantes
 
-'''falta testar aqui !!!!!!!!!!!!!!!!'''
+''' falta testar aqui (só entre quadrantes) !!!!!!!!!!!!!!!!'''
 
 
 # ordens_Q[ind] é a lista com a melhor ordem entre quadrantes
@@ -99,21 +116,6 @@ e dentro delas venha os pontos que ela tem (mais listas dentro)
 [[[x1, y1], [x2, y2]],     [],       []
         [[x3, y3]],          [],     [],
            []        , etc...]]'''
-
-pontosEmQuadrantes = list()
-for i in range(n_quad):
-    pontosEmQuadrantes.append([])
-#verificando para cada ponto o seu lugar na lista pontosEmQuadrantes
-for i in range(n):         # para cada ponto
-    min = 1000             # um número muito grande para o problema
-    c = 0                  # variável suporte para contador
-    for j in range(n_quad):
-        d = dist_2_pontos(pontos[i], quadrantes[j])
-        if d < min:
-            min = d
-            indexQ = j
-            c += 1
-    pontosEmQuadrantes[c-1].append(pontos[i])
 
 
 # escolher a ordem de pontos, lembrando de não passar por

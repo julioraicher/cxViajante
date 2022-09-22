@@ -13,7 +13,7 @@ def dist_2_pontos(P1, P2):
 
 
 # definindo quantos pontos vou querer:
-n = 9  # (programa aguenta até 11 pontos)
+n = 10  # (programa aguenta até 11 pontos)
 # lembrando que para esse programa eu criei ele para ser feito com 5 pontos apenas, mas no futuro da para
 # aprimorar para mais pontos
 
